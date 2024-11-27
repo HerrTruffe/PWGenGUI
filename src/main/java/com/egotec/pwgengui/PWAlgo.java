@@ -1,5 +1,8 @@
 package com.egotec.pwgengui;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONObject;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +20,6 @@ public class PWAlgo {
     private int length = 16;
     //Speichern des PW
     private boolean withOutput = false;
-
     // nicht relevant
     private String leereZeile = " ";
     private boolean auswahl = false;
@@ -26,55 +28,42 @@ public class PWAlgo {
     public boolean getWithUppercase() {
         return withUppercase;
     }
-
     public void setWithUppercase(boolean withUppercase) {
         this.withUppercase = withUppercase;
     }
-
     public boolean getWithLowercase() {
         return withLowercase;
     }
-
     public void setWithLowercase(boolean withLowercase) {
         this.withLowercase = withLowercase;
     }
-
     public boolean getWithNumbers() {
         return withNumbers;
     }
-
     public void setWithNumbers(boolean withNumbers) {
         this.withNumbers = withNumbers;
     }
-
     public boolean getWithSonderzeichen() {
         return withSonderzeichen;
     }
-
     public void setWithSonderzeichen(boolean withSonderzeichen) {
         this.withSonderzeichen = withSonderzeichen;
     }
-
     public boolean getWithUmlaute() {
         return withUmlaute;
     }
-
     public void setWithUmlaute(boolean withUmlaute) {
         this.withUmlaute = withUmlaute;
     }
-
     public boolean getWithNull() {
         return withNull;
     }
-
     public void setWithNull(boolean withNull) {
         this.withNull = withNull;
     }
-
     public boolean getWithOutput() {
         return withOutput;
     }
-
     public void setWithOutput(boolean withOutput) {
         this.withOutput = withOutput;
     }
@@ -155,20 +144,24 @@ public class PWAlgo {
                     count++;
                 }
             }
-        }
-        if (output) {
-            System.out.println("Das Passwort " + password + " wird in einer Datei gespeichert");
-            File testfile = new File("Passwort.txt");
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(testfile));
-                writer.write(password);
-                writer.close();
-            } catch (IOException ex) {
-                System.err.println(ex);
+
+            if (output) {
+                JSONObject jOb = new JSONObject();
+                jOb.put("password:", password);
+                File testfile = new File("src/main/java/com/egotec/pwgengui/TestPWJSON.json");
+
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(testfile));
+                    writer.write(jOb.toString(4));
+                    writer.close();
+                    System.out.println("Passwort " + password + " wurde in der Datei " + testfile.getAbsolutePath() + " gespeichert");
+                } catch (IOException ex) {
+                    System.err.println(ex);
+                }
             }
         }
-            return password;
-        }
+        return password;
+    }
 
     //Dadruch kann ich in einerander Klasse die privte
     public String publicGeneratePassword(int length, boolean uppercase,
