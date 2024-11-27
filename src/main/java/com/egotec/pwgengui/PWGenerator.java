@@ -15,7 +15,6 @@ import java.net.URL;
 
 public class PWGenerator extends Application {
 
-
     // Grundlegende Box
     VBox vBoxMain = new VBox(15);
     //Erstellung der Box
@@ -30,6 +29,7 @@ public class PWGenerator extends Application {
     HBox hFooterBox = new HBox(25);
     HBox hFooterBoxDiv = new HBox(25);
 
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -38,6 +38,7 @@ public class PWGenerator extends Application {
         JsonNode jsonNode = loadJsonFromResources(jsonDateiPfad);
 
         if (jsonNode != null) {
+
             // Zugriff auf die einzelnen Strings in der JSON-Datei + Lable anpassen
             String StringHeader = jsonNode.get("StringHeader").asText();
             String StringText = jsonNode.get("StringText").asText();
@@ -57,36 +58,50 @@ public class PWGenerator extends Application {
             tf1.setPromptText("Bitte drücken Sie den Button...");
             tf1.setMaxWidth(425);
             Button b1 = new Button("Erstelle neues Passwort");
-            b1.setOnAction(actionEvent -> {
-                tf1.setText("123456789A123456789B123456789C123456789D123456789E123456789F1234D");
-                StringlPwTrueLabel.setText("\n\nPasswort wurde erfolgreich generiert!");
-            });
             CheckBox cBox1 = new CheckBox("Großbuchstaben");
+            //Standardeinstellung
+            cBox1.setSelected(true);
             CheckBox cBox2 = new CheckBox("Kleinbuchstaben");
             CheckBox cBox3 = new CheckBox("Zahlen");
             CheckBox cBox4 = new CheckBox("Sonderzeichen");
             CheckBox cBox5 = new CheckBox("Umlaute");
             CheckBox cBox6 = new CheckBox("Null");
+            CheckBox cBox7 = new CheckBox("In Datei Speichern");
+
+            //Konstruktor
+            PWAlgo firstPWGen = new PWAlgo(cBox1.isSelected(),
+                    cBox2.isSelected(), cBox3.isSelected(),
+                    cBox4.isSelected(), cBox5.isSelected(),
+                    cBox6.isSelected(),cBox7.isSelected(), 16);
+
             //Ausgabe des aktuellen True/False Wert der Checkbox
             cBox1.setOnAction(actionEvent -> {
                 System.out.println(cBox1.isSelected());
+                firstPWGen.setWithUppercase(cBox1.isSelected());
             });
-            //Standardeinstellung
-            cBox1.setSelected(true);
             cBox2.setOnAction(actionEvent -> {
+                firstPWGen.setWithLowercase(cBox2.isSelected());
                 System.out.println(cBox2.isSelected());
             });
             cBox3.setOnAction(actionEvent -> {
+                firstPWGen.setWithNumbers(cBox3.isSelected());
                 System.out.println(cBox3.isSelected());
             });
             cBox4.setOnAction(actionEvent -> {
+                firstPWGen.setWithSonderzeichen(cBox4.isSelected());
                 System.out.println(cBox4.isSelected());
             });
             cBox5.setOnAction(actionEvent -> {
+                firstPWGen.setWithUmlaute(cBox5.isSelected());
                 System.out.println(cBox5.isSelected());
             });
             cBox6.setOnAction(actionEvent -> {
+                firstPWGen.setWithNull(cBox6.isSelected());
                 System.out.println(cBox6.isSelected());
+            });
+            cBox7.setOnAction(actionEvent -> {
+                firstPWGen.setWithNull(cBox7.isSelected());
+                System.out.println(cBox7.isSelected());
             });
 
             Slider sl1 = new Slider(1, 64, 16);
@@ -94,9 +109,12 @@ public class PWGenerator extends Application {
             sl1.valueProperty().addListener((v, oldValue, newValue) -> {
                 sl1.setValue(newValue.intValue());
                 int auswahl = newValue.intValue();
+                //Gibt die Länge an den PWAlgo weiter
+                firstPWGen.setLength(auswahl);
                 StringlSliderFieldLabel.setText("Erstelle neues Passwort: " + auswahl);
                 System.out.println(sl1.getValue());
             });
+
             //Anzeige der Tick, große Striche
             sl1.setShowTickLabels(true);
             //Kleine Strichen
@@ -111,7 +129,6 @@ public class PWGenerator extends Application {
                     int anzeigeZahl = (int) Math.round(value);
                     return anzeigeZahl + "";
                 }
-
                 @Override
                 public Double fromString(String s) {
                     return null;
@@ -165,13 +182,22 @@ public class PWGenerator extends Application {
             stage.setScene(mainScene);
             stage.setTitle("Self made PW Generator");
             stage.show();
+
+            b1.setOnAction(actionEvent -> {
+                String passwort = firstPWGen.publicGeneratePassword(
+                        firstPWGen.getLength(), firstPWGen.getWithUppercase(),
+                        firstPWGen.getWithNumbers(), firstPWGen.getWithSonderzeichen(),
+                        firstPWGen.getWithLowercase(), firstPWGen.getWithUmlaute(),
+                        firstPWGen.getWithNull(), firstPWGen.getWithOutput());
+
+                tf1.setText(passwort);
+                StringlPwTrueLabel.setText("\n\nPasswort wurde erfolgreich generiert!");
+            });
         }
     }
-
     public static void main(String[] args) {
         launch();
     }
-
     public static JsonNode loadJsonFromResources(String jsonFilePath) {
         try {
             // Lade die Datei als InputStream aus dem Ressourcenordner
@@ -191,6 +217,8 @@ public class PWGenerator extends Application {
         }
     }
 }
+
+
 
 
 
