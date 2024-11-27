@@ -1,0 +1,93 @@
+/* Stil für das Label mit dem Namen labelHeader */
+#labelHeader {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 25 0 0 0;
+}
+
+/* Stil für das Label mit dem Namen lText */
+#lText {
+    -fx-padding: 15 75 15 75;
+    -fx-background-color: #C6E2FF;
+    -fx-border-color: black;
+    -fx-pref-width: 450px;
+}
+
+/* Stil für sl1 */
+#sl1 {
+    -fx-alignment: center;
+    -fx-background-color: linear-gradient(to right, darkred 0%, lightcoral 10%, lightgreen 26%);
+    -fx-base: orange;
+}
+
+/* Stil für lPwTrue */
+#lPwTrue {
+    -fx-font-weight: bold;
+}
+
+/* Stil für lSliderField */
+#lSliderField {
+    -fx-font-weight: bold;
+}
+
+/* Stil für vBoxMain */
+#vBoxMain {
+    -fx-background-color: lightgray;
+}
+
+/* Stil für hHeaderBox */
+#hHeaderBox {
+    -fx-alignment: center;
+    -fx-background-color: #F4A460;
+}
+
+/* Stil für hTextBox */
+#hTextBox {
+    -fx-alignment: center;
+    -fx-padding: 15 75 15 75;
+}
+
+/* Stil für hBodyBox */
+#hBodyBox {
+    -fx-alignment: center;
+}
+
+/* Stil für hBodyBoxLinks */
+#hBodyBoxLinks {
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-background-color: lightyellow;
+    -fx-pref-width: 575px;
+    -fx-padding: 15 75 15 75;
+}
+
+/* Stil für hBodyBoxRechts */
+#hBodyBoxRechts {
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-background-color: lightblue;
+    -fx-font-weight: bold;
+    -fx-padding: 15 50 15 50;
+}
+
+/* Stil für hSliderBoxText */
+#hSliderBoxText {
+    -fx-alignment: center;
+}
+
+/* Stil für hSliderBoxSlider */
+#hSliderBoxSlider {
+    -fx-alignment: center;
+}
+
+/* Stil für hFooterBox */
+#hFooterBox {
+    -fx-alignment: center;
+}
+
+/* Stil für hFooterBoxDiv */
+#hFooterBoxDiv {
+    -fx-background-color: pink;
+    -fx-border-color: black;
+    -fx-padding: 25 50 25 50;
+}

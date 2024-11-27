@@ -1,0 +1,13 @@
+
+{
+  "StringHeader": "Dies ist der Passwort-GeneratorOver9000",
+  "StringText": "Anleitung:\nKlicken Sie auf den Button um\nautomatisch ein Passwort zu genieren. \nStandard Einstellungen:\nLänge: 16\nGroßbuchstabe aktiv\n\nAlternative Individuelle Anpassung: \n- Checkbox Auswahl treffen\n- Slider Länge einstellen\n- Button drücken",
+  "StringImpressum": "Impressum:\nMax Mustermann\nMusterstraße 123\n12345 Musterstadt\nDeutschland\n\nTel: +49 (0) 123 456 789\nE-mail: max.mustermann@egotec.com",
+  "StringSupport": "Den Support erreichen Sie unter:\nTel: +49 (0) 123 456 789\nE-mail: max.mustermann@egotec.com\n\nZu Risiken und Nebenwirkungen lesen Sie die\nPackungsbeilage und fragen Sie Ihre Ärztin\noder Ihren Arzt oder fragen Sie in Ihrer Apotheke.",
+  "StringlPwTrue": "",
+  "StringlSliderField": "Passwort Länge einstellen: "
+}
+
+
+
+
