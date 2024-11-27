@@ -38,7 +38,6 @@ public class PWGenerator extends Application {
         JsonNode jsonNode = loadJsonFromResources(jsonDateiPfad);
 
         if (jsonNode != null) {
-
             // Zugriff auf die einzelnen Strings in der JSON-Datei + Lable anpassen
             String StringHeader = jsonNode.get("StringHeader").asText();
             String StringText = jsonNode.get("StringText").asText();
@@ -46,12 +45,14 @@ public class PWGenerator extends Application {
             String StringSupport = jsonNode.get("StringSupport").asText();
             String StringlPwTrue = jsonNode.get("StringlPwTrue").asText();
             String StringlSliderField = jsonNode.get("StringlSliderField").asText();
+            String StinglPWGespeichert = jsonNode.get("StringlPWGespeichert").asText();
             Label StringHeaderLabel = new Label(StringHeader);
             Label StringTextLabel = new Label(StringText);
             Label StringImpressumLabel = new Label(StringImpressum);
             Label StringSupportLabel = new Label(StringSupport);
             Label StringlPwTrueLabel = new Label(StringlPwTrue);
             Label StringlSliderFieldLabel = new Label(StringlSliderField);
+            Label StinglPWGespeichertLabel = new Label(StinglPWGespeichert);
             TextField tf1 = new TextField();
             tf1.setEditable(true);
             tf1.setFocusTraversable(Boolean.FALSE);
@@ -100,7 +101,7 @@ public class PWGenerator extends Application {
                 System.out.println(cBox6.isSelected());
             });
             cBox7.setOnAction(actionEvent -> {
-                firstPWGen.setWithNull(cBox7.isSelected());
+                firstPWGen.setWithOutput(cBox7.isSelected());
                 System.out.println(cBox7.isSelected());
             });
 
@@ -148,6 +149,7 @@ public class PWGenerator extends Application {
             hFooterBoxDiv.setId("hFooterBoxDiv");
             StringHeaderLabel.setId("labelHeader");
             StringTextLabel.setId("lText");
+            StinglPWGespeichertLabel.setId("lgespeichert");
             tf1.setId("tf1");
             b1.setId("b1");
             StringlPwTrueLabel.setId("lPwTrue");
@@ -158,8 +160,8 @@ public class PWGenerator extends Application {
             //Hinzufügen der einzelnen Objekte in die entsprechenden Boxen
             hHeaderBox.getChildren().add(StringHeaderLabel);
             hTextBox.getChildren().add(StringTextLabel);
-            hBodyBoxLinks.getChildren().addAll(tf1, b1, StringlPwTrueLabel);
-            hBodyBoxRechts.getChildren().addAll(cBox1, cBox2, cBox3, cBox4, cBox5, cBox6);
+            hBodyBoxLinks.getChildren().addAll(tf1, b1, StringlPwTrueLabel,StinglPWGespeichertLabel );
+            hBodyBoxRechts.getChildren().addAll(cBox1, cBox2, cBox3, cBox4, cBox5, cBox6,cBox7);
             hBodyBox.getChildren().addAll(hBodyBoxLinks, hBodyBoxRechts);
             hSliderBox.getChildren().addAll(hSliderBoxText, hSliderBoxSlider);
             hSliderBoxText.getChildren().add(StringlSliderFieldLabel);
@@ -192,6 +194,11 @@ public class PWGenerator extends Application {
 
                 tf1.setText(passwort);
                 StringlPwTrueLabel.setText("\n\nPasswort wurde erfolgreich generiert!");
+                if (firstPWGen.getWithOutput()) {
+                    StinglPWGespeichertLabel.setText("Passwort wurde gespeichert!");
+                } else {
+                    StinglPWGespeichertLabel.setText("Passwort wurde nicht gespeichert!");
+                }
             });
         }
     }
