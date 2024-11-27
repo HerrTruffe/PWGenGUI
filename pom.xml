@@ -44,6 +44,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!--        Wurde zusätzlich hinzugefügt, um PW in eine Datei als json zu speichern-->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
 
     </dependencies>
 
