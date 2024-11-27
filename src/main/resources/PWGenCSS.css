@@ -25,6 +25,9 @@
     -fx-font-weight: bold;
 }
 
+#lgespeichert{
+    -fx-font-weight: bold;
+}
 /* Stil für lSliderField */
 #lSliderField {
     -fx-font-weight: bold;
