@@ -76,7 +76,7 @@ public class PWGenerator extends Application {
             CheckBox cBox5 = new CheckBox("Umlaute");
             CheckBox cBox6 = new CheckBox("Null");
             CheckBox cBox7 = new CheckBox("In Datei speichern");
-            CheckBox cBox8 = new CheckBox("Safe Settings");
+            CheckBox cBox8 = new CheckBox("Save Settings");
             //Checkboxen nehmen den Wert aus den Json (Safe-Settings) an
             if (jsonNode2 != null) {
                 cBox1.setSelected(jsonNode2.get("Großbuchstaben").asBoolean());
