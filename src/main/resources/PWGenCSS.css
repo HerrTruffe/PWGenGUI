@@ -60,7 +60,7 @@
     -fx-border-color: black;
     -fx-border-width: 2px;
     -fx-background-color: lightyellow;
-    -fx-pref-width: 575px;
+    -fx-pref-width: 450px;
     -fx-padding: 15 75 15 75;
 }
 
@@ -70,6 +70,7 @@
     -fx-border-width: 2px;
     -fx-background-color: lightblue;
     -fx-font-weight: bold;
+    -fx-pref-width: 450px;
     -fx-padding: 15 50 15 50;
 }
 
