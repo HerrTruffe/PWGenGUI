@@ -20,6 +20,8 @@ public class PWAlgo {
     private int length = 16;
     //Speichern des PW
     private boolean withOutput = false;
+    //Speichern der Voreinstellungen
+    private boolean withSettings = false;
     // nicht relevant
     private String leereZeile = " ";
     private boolean auswahl = false;
@@ -55,9 +57,7 @@ public class PWAlgo {
     public void setWithUmlaute(boolean withUmlaute) {
         this.withUmlaute = withUmlaute;
     }
-    public boolean getWithNull() {
-        return withNull;
-    }
+    public boolean getWithNull() {return withNull;}
     public void setWithNull(boolean withNull) {
         this.withNull = withNull;
     }
@@ -67,18 +67,18 @@ public class PWAlgo {
     public void setWithOutput(boolean withOutput) {
         this.withOutput = withOutput;
     }
-
     public int getLength() {
         return length;
     }
-
     public void setLength(int length) {
         this.length = length;
     }
+    public boolean getWithSettings() {return withSettings;}
+    public void setWithSettings(boolean withSettings) {this.withSettings = withSettings;}
 
     public PWAlgo(boolean withUppercase, boolean withLowercase,
                   boolean withNumbers, boolean withSonderzeichen,
-                  boolean withUmlaute, boolean withNull, boolean withOutput, int length) {
+                  boolean withUmlaute, boolean withNull, boolean withOutput, int length, boolean withSettings) {
 
         this.withUppercase = withUppercase;
         this.withLowercase = withLowercase;
@@ -87,6 +87,7 @@ public class PWAlgo {
         this.withUmlaute = withUmlaute;
         this.withNull = withNull;
         this.withOutput = withOutput;
+        this.withSettings = withSettings;
         this.length = length;
 
     }
@@ -94,7 +95,7 @@ public class PWAlgo {
     private String generatePassword(int length, boolean uppercase,
                                     boolean numbers, boolean special,
                                     boolean lowercase, boolean umlaute,
-                                    boolean zeros, boolean output) {
+                                    boolean zeros, boolean output, boolean settings) {
 
         Random random = new Random();
         String password = "";
@@ -148,13 +149,35 @@ public class PWAlgo {
             if (output) {
                 JSONObject jOb = new JSONObject();
                 jOb.put("password:", password);
-                File testfile = new File("src/main/java/com/egotec/pwgengui/TestPWJSON.json");
+                File passwortSpeichern = new File("src/main/java/com/egotec/pwgengui/TestPWJSON.json");
 
                 try {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(testfile));
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(passwortSpeichern));
                     writer.write(jOb.toString(4));
                     writer.close();
-                    System.out.println("Passwort " + password + " wurde in der Datei " + testfile.getAbsolutePath() + " gespeichert");
+                    System.out.println("Passwort " + password + " wurde in der Datei " + passwortSpeichern.getAbsolutePath() + " gespeichert");
+                } catch (IOException ex) {
+                    System.err.println(ex);
+                }
+            }
+            if (settings) {
+                JSONObject letzteEinstellung = new JSONObject();
+                letzteEinstellung.put("Länge", length);
+                letzteEinstellung.put("Großbuchstaben", uppercase);
+                letzteEinstellung.put("Kleinbuchstaben", lowercase);
+                letzteEinstellung.put("Nummern", numbers);
+                letzteEinstellung.put("Sonderzeichen", special);
+                letzteEinstellung.put("Umlaute", umlaute);
+                letzteEinstellung.put("Nullen", zeros);
+                letzteEinstellung.put("PW Speicher", output);
+                letzteEinstellung.put("Settings Speicher", true);
+                File vorEinstellungen = new File("src/main/resources/PWGenSettings.json");
+
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(vorEinstellungen));
+                    writer.write(letzteEinstellung.toString(4));
+                    writer.close();
+                    System.out.println("Einstellungen wurden in der Datei " + vorEinstellungen.getAbsolutePath() + " gespeichert");
                 } catch (IOException ex) {
                     System.err.println(ex);
                 }
@@ -167,7 +190,7 @@ public class PWAlgo {
     public String publicGeneratePassword(int length, boolean uppercase,
                                          boolean numbers, boolean special,
                                          boolean lowercase, boolean umlaute,
-                                         boolean zeros, boolean output) {
-        return generatePassword(length, uppercase, numbers, special, lowercase, umlaute, zeros, output);
+                                         boolean zeros, boolean output, boolean settings) {
+        return generatePassword(length, uppercase, numbers, special, lowercase, umlaute, zeros, output, settings);
     }
 }
